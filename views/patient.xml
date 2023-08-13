@@ -58,7 +58,6 @@
                         <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
                         <separator/>
                         <filter name="filter_childs" string="Childs" domain="[('is_child','=','True')]"/>
-
                     </search>
             </field>
     </record>

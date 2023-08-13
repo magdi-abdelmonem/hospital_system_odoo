@@ -13,6 +13,8 @@
         'views/menu.xml',
         'views/patient.xml',
         'views/doctor.xml',
+        'reports/doctor_report.xml',
+        'reports/patient_report.xml',
     ]
 
 }
