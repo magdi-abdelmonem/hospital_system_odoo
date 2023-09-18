@@ -27,7 +27,7 @@
         <field name="name">hospital.doctor.tree</field>
         <field name="model">hospital.doctor</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree >
                 <field name="name"/>
                 <field name="spec"/>
                 <field name="gender"/>
@@ -57,7 +57,7 @@
         <field name="name">hospital.doctor.graph</field>
         <field name="model">hospital.doctor</field>
         <field name="arch" type="xml">
-            <graph string="fdsfds">
+            <graph>
                 <field name="gender"/>
                 <field name="spec" />
             </graph>

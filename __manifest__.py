@@ -5,7 +5,7 @@
     "summary":"odoo 16",
     "website":'www.hospital.com',
 
-    "depends":["mail"],
+    "depends":["mail",'board'],
 
 
     'data': [
@@ -13,6 +13,7 @@
         'views/menu.xml',
         'views/patient.xml',
         'views/doctor.xml',
+        'views/appointment.xml',
         'reports/doctor_report.xml',
         'reports/patient_report.xml',
     ]

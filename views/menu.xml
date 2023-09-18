@@ -21,4 +21,11 @@
             sequence="10"/>
 
 
+    <menuitem
+            id="menu_hospital_appointment"
+            name="Appointment"
+            parent="menu_hospital_root"
+            sequence="10"/>
+
+
 </odoo>
