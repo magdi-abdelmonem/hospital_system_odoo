@@ -7,16 +7,34 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="submit_action" string="Submit" type="object" class="oe_highlight" states="draft"/>
+
+                    <button name="cancel_action" string="Cancel" type="object" class="oe_highlight" states="done,consultation"/>
+                    <button name="done_action" string="Accept for Appointment" type="object" class="oe_highlight" states="consultation"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,consultation,done"/>
+                </header>
                 <sheet>
+                    <div>
+                        <h2>
+                            <field name="priority" widget="priority"/>
+                        </h2>
+                    </div>
                     <group>
-                    <group>
-                        <field name="patient_id"/>
-                        <field name="gender"/>
-                    </group>
-                    <group>
-                        <field name="appointment_time"/>
-                        <field name="booking_date"/>
-                    </group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="doctor_id"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="appointment_time"/>
+                            <field name="booking_date"/>
+
+                        </group>
+                        <group>
+                            <field name="cancel_reason" attrs="{'invisible':[('state','!=','canceled')]}"/>
+                        </group>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
@@ -33,45 +51,55 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="patient_id"/>
+                <field name="patient_id" />
+                <field name="doctor_id" widget="many2one_avatar"/>
                 <field name="appointment_time"/>
                 <field name="booking_date"/>
+                <field name="state"
+                   decoration-danger="state=='canceled'"
+                   decoration-warning="state =='department_manager_approved'"
+                   decoration-info="state =='consultation'"
+                   decoration-primary="state =='done'"
+                   decoration-muted="state =='draft'"
+                   widget="badge"/>
 
             </tree>
         </field>
     </record>
 
-    <!-- search view-->
-
-<!--    <record id="view_hospital_doctor_search" model="ir.ui.view">-->
-<!--        <field name="name">hospital.doctor.search</field>-->
-<!--        <field name="model">hospital.doctor</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search>-->
-<!--                <field name="name"/>-->
-<!--                <field name="gender"/>-->
-<!--                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>-->
-<!--                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
-
-<!--    -->
 
 
+   <!-- search view-->
 
-    <record id="action_hospital_appointment" model="ir.actions.act_window">
-        <field name="name">hospital.appointment</field>
+    <record id="view_hospital_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_id"/>
+                <field name="state"/>
+                <filter name="filter_state_by_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="filter_state_by_consultation" string="In consultation" domain="[('state','=','consultation')]"/>
+                <filter name="filter_state_by_done" string="Done" domain="[('state','=','done')]"/>
+                <filter name="filter_state_by_canceled" string="Canceled" domain="[('state','=','canceled')]"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hospital_appointments" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hospital.appointment</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,search</field>
     </record>
 
     <menuitem
             id="menu_appointment"
-            name="appointment"
+            name="Appointment"
             parent="menu_hospital_appointment"
-            action="action_hospital_appointment"
-            sequence="11"/>
+            action="action_hospital_appointments"
+            sequence="10"/>
 
 </odoo>

@@ -3,3 +3,4 @@ om_hospital.access_hospital_patient,access_hospital_patient,om_hospital.model_ho
 om_hospital.access_hospital_doctor,access_hospital_doctor,om_hospital.model_hospital_doctor,base.group_user,1,1,1,1
 
 access.hospital.appointment,access_hospital_appointment,om_hospital.model_hospital_appointment,base.group_user,1,1,1,1
+access.cancel.appointment,access_cancel_appointment,om_hospital.model_cancel_appointment,base.group_user,1,1,1,1

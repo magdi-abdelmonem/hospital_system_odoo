@@ -16,3 +16,10 @@ class HospitalDoctor(models.Model):
                              ("dermatology", "Dermatology"), ("radiology", "Radiology"),
                              ("psychiatry", "Psychiatry"), ("dentistry", "Dentistry"),
                              ], string="Specialization", required=True)
+    personal_img=fields.Image(string="Personal Image")
+
+    have_car=fields.Boolean(string="Have a car ? ")
+    phone=fields.Integer(string="Phone Number")
+    email=fields.Char(string="Email")
+    address=fields.Char(string="Address")
+    Marital_Status=fields.Selection([("single","Single"),("married","Married")],string="Marital Status")
