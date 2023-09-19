@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import date
+from odoo.exceptions import ValidationError
 class HospitalAppoinment(models.Model):
     _name = 'hospital.appointment'
     _inherit = 'mail.thread'
@@ -25,6 +26,19 @@ class HospitalAppoinment(models.Model):
                      ("4","very high"),
                      ],string="Priority")
 
+    @api.constrains("booking_date","appointment_time")
+    def _check_date(self):
+        for rec in self:
+            if rec.booking_date <= rec.appointment_time.date():
+                raise ValidationError("Cant book date at this day")
+
+
+    def unlink(self):
+        for rec in self:
+            if rec.state == 'consultation':
+                raise ValidationError("can not delete in consultation mode")
+        return super(HospitalAppoinment, self).unlink()
+
     def submit_action(self):
         for rec in self:
             rec.state="consultation"
@@ -37,3 +51,5 @@ class HospitalAppoinment(models.Model):
     def done_action(self):
         for rec in self:
             rec.state="done"
+
+

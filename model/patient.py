@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 from odoo.exceptions import ValidationError
 
 
@@ -8,6 +8,8 @@ class HospitalPatient(models.Model):
     _description = "Patient.Records"
 
     name = fields.Char(string="Name", required=True, tracking=True)
+    reference = fields.Char(string='Subject Reference', required=True, copy=False, readonly=True,
+                            default=lambda self: _("New"))
     age = fields.Integer(string="Age", tracking=True)
     is_child = fields.Boolean(string="Is Child", tracking=True)
     notes = fields.Text(string="Notes")
@@ -16,6 +18,14 @@ class HospitalPatient(models.Model):
     tag_ids=fields.Many2many('res.partner.category' ,string='Tags')
     section= fields.Char(string="Section",store=True)
     capitalize_name = fields.Char(string="Capitalize Name", store=True)
+
+    _sql_constraints = [
+        ('name_description_check', 'CHECK(name!= description)',"the title of course should not be the title of description"),
+
+        ('name_uniq', 'unique (name)', "Tag name already exists !"),
+
+        ('check_age', 'check (age>0)', "age must be greater than 0 !"),
+    ]
 
     @api.onchange("doctor_id")
     def _onchange_Section(self):
@@ -43,3 +53,9 @@ class HospitalPatient(models.Model):
             self.is_child = True
         else:
             self.is_child = False
+
+    @api.model
+    def create(self, vals):
+        if vals.get('reference', _('New')) == _('New'):
+            vals['reference'] = self.env['ir.sequence'].next_by_code('sequence.patient') or _('New')
+            return super(HospitalPatient, self).create(vals)

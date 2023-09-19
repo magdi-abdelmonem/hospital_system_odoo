@@ -33,7 +33,8 @@
 
                         </group>
                         <group>
-                            <field name="cancel_reason" attrs="{'invisible':[('state','!=','canceled')]}"/>
+                            <field name="cancel_reason" attrs="{'invisible':[('state','!=','canceled')]
+                                                               ,'required':[('state','=','canceled')]}"/>
                         </group>
                     </group>
                 </sheet>

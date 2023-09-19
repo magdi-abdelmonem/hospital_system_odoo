@@ -17,6 +17,7 @@
         'reports/doctor_report.xml',
         'reports/patient_report.xml',
         'wizard/cancel_appointment.xml',
+        'data/patient_sequence.xml',
     ]
 
 }
