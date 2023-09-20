@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 from datetime import date
 from odoo.exceptions import ValidationError
+
 class HospitalAppoinment(models.Model):
     _name = 'hospital.appointment'
     _inherit = 'mail.thread'
