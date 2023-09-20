@@ -14,6 +14,7 @@
         'views/patient.xml',
         'views/doctor.xml',
         'views/appointment.xml',
+        'views/res_config_settings_views.xml',
         'reports/doctor_report.xml',
         'reports/patient_report.xml',
         'wizard/cancel_appointment.xml',

@@ -10,8 +10,10 @@
                 <header>
                     <button name="submit_action" string="Submit" type="object" class="oe_highlight" states="draft"/>
 
-                    <button name="cancel_action" string="Cancel" type="object" class="oe_highlight" states="done,consultation"/>
-                    <button name="done_action" string="Accept for Appointment" type="object" class="oe_highlight" states="consultation"/>
+                    <button name="cancel_action" string="Cancel" type="object" class="oe_highlight"
+                            states="done,consultation"/>
+                    <button name="done_action" string="Accept for Appointment" type="object" class="oe_highlight"
+                            states="consultation"/>
 
                     <field name="state" widget="statusbar" statusbar_visible="draft,consultation,done"/>
                 </header>
@@ -52,25 +54,28 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="patient_id" />
+                <header>
+                    <button name="cancel_action" string="Cancel" type="object" class="oe_highlight"
+                            states="done,consultation"/>
+                </header>
+                <field name="patient_id"/>
                 <field name="doctor_id" widget="many2one_avatar"/>
                 <field name="appointment_time"/>
                 <field name="booking_date"/>
                 <field name="state"
-                   decoration-danger="state=='canceled'"
-                   decoration-warning="state =='department_manager_approved'"
-                   decoration-info="state =='consultation'"
-                   decoration-primary="state =='done'"
-                   decoration-muted="state =='draft'"
-                   widget="badge"/>
+                       decoration-danger="state=='canceled'"
+                       decoration-warning="state =='department_manager_approved'"
+                       decoration-info="state =='consultation'"
+                       decoration-primary="state =='done'"
+                       decoration-muted="state =='draft'"
+                       widget="badge"/>
 
             </tree>
         </field>
     </record>
 
 
-
-   <!-- search view-->
+    <!-- search view-->
 
     <record id="view_hospital_appointment_search" model="ir.ui.view">
         <field name="name">hospital.appointment.search</field>
@@ -80,7 +85,8 @@
                 <field name="patient_id"/>
                 <field name="state"/>
                 <filter name="filter_state_by_draft" string="Draft" domain="[('state','=','draft')]"/>
-                <filter name="filter_state_by_consultation" string="In consultation" domain="[('state','=','consultation')]"/>
+                <filter name="filter_state_by_consultation" string="In consultation"
+                        domain="[('state','=','consultation')]"/>
                 <filter name="filter_state_by_done" string="Done" domain="[('state','=','done')]"/>
                 <filter name="filter_state_by_canceled" string="Canceled" domain="[('state','=','canceled')]"/>
                 <separator/>
